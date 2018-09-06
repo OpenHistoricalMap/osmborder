@@ -124,9 +124,14 @@ public:
         maritime = maritime || way.tags().has_tag("maritime", "yes");
         maritime = maritime || way.tags().has_tag("natural", "coastline");
 
-        std::string name(way.tags().get_value_by_key("name"));
-        std::string start_date(way.tags().get_value_by_key("start_date"));
-        std::string end_date(way.tags().get_value_by_key("end_date"));
+        const char* raw_name = way.tags().get_value_by_key("name");
+        std::string name(raw_name ? raw_name : "");
+
+        const char* raw_start_date = way.tags().get_value_by_key("start_date");
+        std::string start_date(raw_start_date ? raw_start_date : "");
+
+        const char* raw_end_date = way.tags().get_value_by_key("end_date");
+        std::string end_date(raw_end_date ? raw_end_date : "");
 
         // Tags on the parent relations
         for (const auto &rel_offset : m_way_rels[way.id()]) {
