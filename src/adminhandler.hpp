@@ -115,9 +115,6 @@ public:
         std::vector<int> parent_admin_levels;
         bool disputed = false;
         bool maritime = false;
-        std::string name = "";
-        std::string start_date = "";
-        std::string end_date = "";
 
         // Tags on the way itself
         disputed = disputed || way.tags().has_tag("disputed", "yes");
@@ -127,11 +124,9 @@ public:
         maritime = maritime || way.tags().has_tag("maritime", "yes");
         maritime = maritime || way.tags().has_tag("natural", "coastline");
 
-        name = name || way.tags().get_value_by_key("name");
-        name = name || way.tags().get_value_by_key("boundary:name");
-
-        start_date = way.tags().get_value_by_key("start_date");
-        end_date = way.tags().get_value_by_key("end_date");
+        std::string name(way.tags().get_value_by_key("name"));
+        std::string start_date(way.tags().get_value_by_key("start_date"));
+        std::string end_date(way.tags().get_value_by_key("end_date"));
 
         // Tags on the parent relations
         for (const auto &rel_offset : m_way_rels[way.id()]) {
